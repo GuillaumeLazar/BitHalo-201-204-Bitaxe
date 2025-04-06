@@ -28,7 +28,20 @@ void setup() {
   FastLED.addLeds<WS2812, DATA_PIN, RGB>(leds, NUM_LEDS);
   pinMode(BUTTON_PIN, INPUT_PULLUP);        // Set button pin as input with pull-up resistor
   Serial.begin(115200);
-  inputString.reserve(MAX_INPUT_LENGTH); 
+  inputString.reserve(MAX_INPUT_LENGTH);
+  
+  // BitHalo startup animation
+  CRGB startupColor = CRGB(255, 255, 255);
+  for (int i = 0; i < 70; i++) {
+    BootLoops(startupColor.r, startupColor.g, startupColor.b, 30, 30, 1000, 1);
+  }
+  for (int brightness = 255; brightness >= 0; brightness -= FADE_SPEED) {
+    CRGB fadedColor = startupColor;
+    fadedColor.nscale8(brightness);
+    fill_solid(leds, NUM_LEDS, fadedColor);
+    FastLED.show();
+    delay(20);
+  }
 }
 
 void loop() {
