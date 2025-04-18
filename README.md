@@ -1,5 +1,50 @@
 ***
 
+### Fork information
+The orginal project from @IAmGPIO can be found here [BitHalo-201-204-Bitaxe](https://github.com/IamGPIO/BitHalo-201-204-Bitaxe)
+
+This fork try only to enhance the Arduino source code part only:
+- [X] Add vscode / platformio support (Arduino IDE is not required anymore)
+- [X] Fix the FastLED led order (GRB)
+- [/] Split the 'event process' and 'led animation' into two classes
+  - [X] LedAnimation
+  - [ ] EventManager
+- [/] Detect events
+  - [X] Startup progress
+    - [X] Device startup
+    - [X] Initializing serial
+  - [ ] Wifi error
+  - [ ] mining.subscribe (miner connect to the pool server)
+  - [X] mining.notify (start a new mining round)
+  - [ ] mining.submit (not required, only the submit result is important?)
+    - [X] share accepted
+    - [X] share rejected
+    - [ ] track accepted/rejected shares count per round
+  - [ ] asic_result: (ASIC finished a job)
+  - [?] BLOCK FOUND (not in the log?)
+  - [ ] Fan speed (not in the log?)
+  - [ ] ASIC Temperature (not in the log?)
+  - [ ] Voltage Regulator Temperature (not in the log?)
+- [/] Cool animations
+  - [X] FadeIn
+  - [X] FadeOut
+  - [X] FadeInOut (~ replace the original function: pulseLeds())
+  - [X] Rainbow
+  - [ ] Cyclon
+- [ ] Find something to do with the rear button
+- [ ] Describe all steps required to update the source code:
+   - [ ] install vscode + platformio extension*
+   - [ ] unscrew, solder programmer headers, screw again
+   - [ ] switch off internal power, plug programmer
+   - [ ] upload
+   - [ ] monitor/debug
+
+#### Useful links
+- https://en.bitcoin.it/wiki/Stratum_mining_protocol
+- https://github.com/bitaxeorg/ESP-Miner/blob/master/main/tasks/stratum_task.c
+- https://www.tweaking4all.com/hardware/arduino/adruino-led-strip-effects/
+
+
 ### The BitHalo by IAmGPIO of www.thesolomining.co
 
 In the grand tapestry of the cosmos, where stars weave the stories of fate and fortune, the Almighty leaned over to the legendary IAmGpio, whispering through the winds of time, __'Let there be light.'__ With a smirk as wide as the horizon and the casual air of a cosmic pub regular, IAmGpio, the electric alchemist, declared with a mischievous twinkle, 'Hold my beer...' And thus, amidst a backdrop of chuckling constellations, the darkness scurried away, leaving behind a spectacle to be remembered.
