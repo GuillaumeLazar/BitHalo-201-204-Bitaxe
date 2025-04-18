@@ -20,13 +20,13 @@ void handleButtonPress();
 void processInput();
 
 void setup() {
-  ledAnimation.setup();
   pinMode(BUTTON_PIN, INPUT_PULLUP);        // Set button pin as input with pull-up resistor
   Serial.begin(115200);
   inputString.reserve(MAX_INPUT_LENGTH);
   
   // BitHalo startup animation
-  ledAnimation.statupAnimation();
+  ledAnimation.rainbow(2000, 5, 1);
+  ledAnimation.fadeOff(2000);
 }
 
 void loop() {
@@ -54,17 +54,17 @@ void loop() {
 
 void processInput() {
   // check bitaxe source code
-  // https://github.com/bitaxeorg/ESP-Miner/blob/master/main/tasks/stratum_task.c
+  
   if (inputString.indexOf("mining.notify") >= 0) {
-    ledAnimation.pulseLeds(CRGB(255, 255, 255));
+    ledAnimation.fadeInOut(CRGB::White, 1000);
   }
 
   if (inputString.indexOf("accepted") >= 0) {
-    ledAnimation.pulseLeds(CRGB(0, 0, 255));
+    ledAnimation.fadeInOut(CRGB::Blue, 1000);
   }
 
   if (inputString.indexOf("rejected") >= 0) {
-    ledAnimation.pulseLeds(CRGB(255, 0, 0));
+    ledAnimation.fadeInOut(CRGB::Red, 1000);
   }
   
   if (inputString.indexOf("BLOCK FOUND") >= 0) {
@@ -97,7 +97,7 @@ void handleButtonPress() {
   // Serial.println(currentNumber);
   
   // Pulse the LEDs to show the new color
-  ledAnimation.pulseLeds(CRGB(0, 0, 255));
+  ledAnimation.fadeInOut(CRGB::Purple, 1000);
 }
 
 // Function to map numbers to colors
