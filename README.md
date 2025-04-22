@@ -33,7 +33,7 @@ This fork try only to enhance the Arduino source code part only:
   - [ ] Cyclon
 - [ ] Find something to do with the rear button
 - [ ] Describe all steps required to update the source code:
-   - [ ] install vscode + platformio extension*
+   - [ ] install vscode + platformio extension
    - [ ] unscrew, solder programmer headers, screw again
    - [ ] switch off internal power, plug programmer
    - [ ] upload

@@ -5,17 +5,15 @@
 #include "LedAnimation.h"
 
 #define BUTTON_PIN 6          // Button pin
-#define FADE_SPEED 5
 #define MAX_INPUT_LENGTH 200  // Maximum length of input buffer
 #define MAX_NUMBER 8          // Maximum number for LED colors
 
 LedAnimation ledAnimation;
 String inputString = "";        
-int bootLoopCount = 0;                      // Initialize a counter to keep track of the number of BootLoops
 
+// Button stuff
 int currentNumber = 3;                      // Number to determine LED color
 bool buttonPressed = false;                 // Flag to track button state
-
 void handleButtonPress();
 void processInput();
 
@@ -25,8 +23,8 @@ void setup() {
   inputString.reserve(MAX_INPUT_LENGTH);
   
   // BitHalo startup animation
-  ledAnimation.rainbow(2000, 5, 1);
-  ledAnimation.fadeOff(2000);
+  ledAnimation.trailSolid(CRGB::White, 1000, NUM_LEDS, true);
+  ledAnimation.fadeOff(3000);
 }
 
 void loop() {
@@ -52,33 +50,24 @@ void loop() {
   }
 }
 
-void processInput() {
-  // check bitaxe source code
-  
-  if (inputString.indexOf("mining.notify") >= 0) {
-    ledAnimation.fadeInOut(CRGB::White, 1000);
-  }
+void processInput() { 
 
-  if (inputString.indexOf("accepted") >= 0) {
-    ledAnimation.fadeInOut(CRGB::Blue, 1000);
-  }
-
-  if (inputString.indexOf("rejected") >= 0) {
-    ledAnimation.fadeInOut(CRGB::Red, 1000);
-  }
-  
-  if (inputString.indexOf("BLOCK FOUND") >= 0) {
-    ledAnimation.buyLambo();
-  }
-  
   if (inputString.indexOf("Initializing serial") >= 0) {
-    for (int i = 0; i < 25000; i++) { // Run BootLoops 25000 times
-      ledAnimation.showLoops(0, 100, 255, 30, 30, 1000, 1);
-      bootLoopCount++;
-      if (bootLoopCount >= 250) {
-        break; // Exit the loop after 250 iterations
-      }
+    for (int i = 0; i < 250; i++) {
+      ledAnimation.trailSolid(CRGB::Purple);
     }
+
+  } else if (inputString.indexOf("mining.notify") >= 0) {
+    ledAnimation.fadeInOut(CRGB::Blue, 1000);
+
+  } else if  (inputString.indexOf("accepted") >= 0) {
+    ledAnimation.fadeInOut(CRGB::Green, 1000);
+
+  } else if (inputString.indexOf("rejected") >= 0) {
+    ledAnimation.fadeInOut(CRGB::Red, 1000);
+
+  } else if  (inputString.indexOf("BLOCK FOUND") >= 0) {
+    ledAnimation.rainbowInfinite();
   }
   
   // Clear the input string for new data

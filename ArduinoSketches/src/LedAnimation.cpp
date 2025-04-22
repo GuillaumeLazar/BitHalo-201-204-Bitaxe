@@ -76,47 +76,37 @@ void LedAnimation::rainbow(uint32_t duration, uint32_t speed, uint32_t step)
     }
 }
 
-// direction :
-// -1: clockwise
-//  1: counterclockwise
-void LedAnimation::showLoops(int red, int green, int blue, int tail_length, int delay_duration, int interval, int direction) {
-    unsigned long currentMillis = millis();   // Get the time
-    if (currentMillis - previousMillis >= interval) {
-        previousMillis = currentMillis;         // Save the last time the LEDs were updated
-        count = 0;                              // Reset the count to 0 after each interval
+void LedAnimation::rainbowInfinite(uint32_t duration, uint32_t speed, uint32_t step)
+{
+    while (true) {
+        rainbow(duration, speed, step);
     }
-    if (direction == -1) {        // Reverse direction option for LEDs
-        if (count < NUM_LEDS) {
-            m_leds[NUM_LEDS - (count % (NUM_LEDS + 1))].setRGB(red, green, blue);    // Set LEDs with the color value
-            count++;
-        }
-    } else {
-        if (count < NUM_LEDS) {     // Forward direction option for LEDs
-            m_leds[count % (NUM_LEDS + 1)].setRGB(red, green, blue);    // Set LEDs with the color value
-            count++;
-        }
-    }
-    fadeToBlackBy(m_leds, NUM_LEDS, tail_length);                 // Fade the tail LEDs to black
-    FastLED.show();
-    delay(delay_duration);                                      // Delay to set the speed of the animation
 }
 
-void LedAnimation::buyLambo()
+void LedAnimation::trailSolid(CRGB color, uint32_t duration=1000, uint8_t distance, bool isReversed, uint8_t tailFading)
 {
-    CRGB WHITE = CRGB(255, 255, 255);
-    int flashCount = 0;
-    
-    while (flashCount < 1000000000) {
-        // Turn on all LEDs to white
-        fill_solid(m_leds, NUM_LEDS, WHITE);
+    int delayValue = duration / distance;
+
+    for (int i = 0; i < distance; i++) {
+        unsigned long currentMillis = millis();   // Get the time
+        if (currentMillis - m_previousMillis >= duration) {
+            m_previousMillis = currentMillis;         // Save the last time the LEDs were updated
+            m_count = 0;                              // Reset the count to 0 after each interval
+        }
+        if (isReversed) {        // Reverse direction option for LEDs
+            if (m_count < NUM_LEDS) {
+                m_leds[NUM_LEDS - (m_count % (NUM_LEDS + 1))] = color;    // Set LEDs with the color value
+                m_count++;
+            }
+        } else {
+            if (m_count < NUM_LEDS) {     // Forward direction option for LEDs
+                m_leds[m_count % (NUM_LEDS + 1)] = color;    // Set LEDs with the color value
+                m_count++;
+            }
+        }
+        fadeToBlackBy(m_leds, NUM_LEDS, tailFading);                 // Fade the tail LEDs to black
         FastLED.show();
-        delay(100); // Wait for a short period
-        
-        // Turn off all LEDs
-        fill_solid(m_leds, NUM_LEDS, CRGB::Black);
-        FastLED.show();
-        delay(100); // Wait for a short period
-        
-        flashCount++;
+        delay(delayValue);                                              // Delay to set the speed of the animation
     }
 }
+
