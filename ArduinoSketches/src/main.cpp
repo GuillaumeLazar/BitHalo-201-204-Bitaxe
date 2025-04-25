@@ -5,7 +5,7 @@
 #include "LedAnimation.h"
 
 #define BUTTON_PIN 6          // Button pin
-#define MAX_INPUT_LENGTH 200  // Maximum length of input buffer
+#define MAX_INPUT_LENGTH 256  // Maximum length of input buffer
 #define MAX_NUMBER 8          // Maximum number for LED colors
 
 LedAnimation ledAnimation;
@@ -50,8 +50,7 @@ void loop() {
   }
 }
 
-void processInput() { 
-
+void processInput() {
   if (inputString.indexOf("Initializing serial") >= 0) {
     for (int i = 0; i < 250; i++) {
       ledAnimation.trailSolid(CRGB::Purple);
@@ -68,6 +67,9 @@ void processInput() {
 
   } else if  (inputString.indexOf("BLOCK FOUND") >= 0) {
     ledAnimation.rainbowInfinite();
+
+  } else if (inputString.indexOf("asic_result") >= 0) {
+    // ledAnimation.fadeInOut(CRGB::Cyan, 50);
   }
   
   // Clear the input string for new data
