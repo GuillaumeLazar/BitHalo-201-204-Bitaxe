@@ -6,10 +6,10 @@ The orginal project from @IAmGPIO can be found here [BitHalo-201-204-Bitaxe](htt
 This fork try only to enhance the Arduino source code part only:
 - [X] Add vscode / platformio support (Arduino IDE is not required anymore)
 - [X] Fix the FastLED led order (GRB)
-- [/] Split the 'event process' and 'led animation' into two classes
+- [ ] Split the 'event process' and 'led animation' into two classes
   - [X] LedAnimation
   - [ ] EventManager
-- [/] Detect events
+- [ ] Detect events
   - [X] Startup progress
     - [X] Device startup
     - [X] Initializing serial
@@ -20,12 +20,13 @@ This fork try only to enhance the Arduino source code part only:
     - [X] share accepted
     - [X] share rejected
     - [ ] track accepted/rejected shares count per round
-  - [ ] asic_result: (ASIC finished a job)
-  - [?] BLOCK FOUND (not in the log?)
+  - [ ] idle state (nothing happens, could conflict with other animations)
+  - [X] asic_result: (ASIC finished a job)
+  - [ ] BLOCK FOUND (not in the log?)
   - [ ] Fan speed (not in the log?)
   - [ ] ASIC Temperature (not in the log?)
   - [ ] Voltage Regulator Temperature (not in the log?)
-- [/] Cool animations
+- [ ] Cool animations
   - [X] FadeIn
   - [X] FadeOut
   - [X] FadeInOut (~ replace the original function: pulseLeds())
